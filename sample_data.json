@@ -1,0 +1,58 @@
+{
+  "summary": {
+    "totalMonthlyCost": 847.32,
+    "totalWaste": 213.50,
+    "wastePercentage": 25.2,
+    "findingsCount": 12,
+    "lastUpdated": "2025-06-05T08:00:00Z"
+  },
+  "costByService": [
+    { "service": "Amazon EC2",           "monthlyCost": 412.00, "trend": "+8%" },
+    { "service": "Amazon RDS",           "monthlyCost": 198.50, "trend": "-2%" },
+    { "service": "Amazon S3",            "monthlyCost": 87.30,  "trend": "+1%" },
+    { "service": "AWS Lambda",           "monthlyCost": 12.40,  "trend": "0%"  },
+    { "service": "Amazon CloudWatch",    "monthlyCost": 34.10,  "trend": "+3%" },
+    { "service": "AWS Data Transfer",    "monthlyCost": 103.02, "trend": "+5%" }
+  ],
+  "dailyTrend": [
+    { "date": "2025-05-06", "spend": 26.40 },
+    { "date": "2025-05-07", "spend": 27.10 },
+    { "date": "2025-05-08", "spend": 25.80 },
+    { "date": "2025-05-09", "spend": 24.90 },
+    { "date": "2025-05-10", "spend": 28.30 },
+    { "date": "2025-05-11", "spend": 31.20 },
+    { "date": "2025-05-12", "spend": 29.70 }
+  ],
+  "wasteFindings": [
+    {
+      "resourceId":    "i-0abc123def456",
+      "resourceName":  "staging-api-server",
+      "wasteType":     "idle-ec2",
+      "detail":        "m5.large, avg CPU 2.3% over 14 days",
+      "monthlySavings": 69.12,
+      "ownerTag":      "backend-team",
+      "status":        "open",
+      "detectedAt":    "2025-06-05T09:00:00Z"
+    },
+    {
+      "resourceId":    "eipalloc-0def789",
+      "resourceName":  "52.66.142.11",
+      "wasteType":     "unused-eip",
+      "detail":        "Elastic IP not associated with any resource",
+      "monthlySavings": 3.60,
+      "ownerTag":      "devops-team",
+      "status":        "open",
+      "detectedAt":    "2025-06-05T09:00:00Z"
+    },
+    {
+      "resourceId":    "vol-0xyz456abc",
+      "resourceName":  "old-backup-volume",
+      "wasteType":     "unattached-ebs",
+      "detail":        "500GB gp2 volume, not attached since 2025-03-12",
+      "monthlySavings": 50.00,
+      "ownerTag":      "data-team",
+      "status":        "open",
+      "detectedAt":    "2025-06-05T09:00:00Z"
+    }
+  ]
+}

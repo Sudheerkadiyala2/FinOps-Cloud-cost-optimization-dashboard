@@ -1,0 +1,11 @@
+{
+  "Effect": "Allow",
+  "Action": [
+    "ec2:DescribeInstances",
+    "ec2:DescribeAddresses",
+    "ec2:DescribeVolumes",
+    "cloudwatch:GetMetricStatistics",
+    "s3:PutObject"
+  ],
+  "Resource": "*"
+}
