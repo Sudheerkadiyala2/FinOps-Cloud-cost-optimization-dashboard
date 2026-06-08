@@ -1,0 +1,75 @@
+
+name: Deploy AWS Cost Intelligence Lambdas
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy Lambda Functions
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Step 1 - Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2 - Configure AWS Credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # Deploy cost_collector Lambda
+
+      - name: Zip cost_collector Lambda
+        run: |
+          cd lambdas/cost_collector
+          zip -r ../../cost_collector.zip .
+
+      - name: Deploy cost_collector Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name cost-collector \
+            --zip-file fileb://cost_collector.zip
+      # Deploy waste_detector Lambda
+
+      - name: Zip waste_detector Lambda
+        run: |
+          cd lambdas/waste_detector
+          zip -r ../../waste_detector.zip .
+
+      - name: Deploy waste_detector Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name waste-detector \
+            --zip-file fileb://waste_detector.zip
+      # Deploy API Lambda
+      - name: Zip API Lambda
+        run: |
+          cd lambdas/api
+          zip -r ../../api.zip .
+
+      - name: Deploy API Lambda
+        run: |
+          aws lambda update-function-code \
+            --function-name cost-intelligence-api \
+            --zip-file fileb://api.zip
+
+      # Deployment Success Message
+
+      - name: Deployment Complete
+        run: echo "All Lambda functions deployed successfully."
+
+
+
+
+
+
+
+
