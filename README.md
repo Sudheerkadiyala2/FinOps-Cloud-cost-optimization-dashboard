@@ -110,13 +110,13 @@ aws-cost-intelligence/
 ├── lambdas/
 │   ├── cost_collector/
 │   │   ├── handler.py          # collects AWS inventory + CloudWatch metrics
-│   │   └── requirements.txt
+│   │   
 │   ├── waste_detector/
 │   │   ├── handler.py          # detects waste, writes findings to DynamoDB
-│   │   └── requirements.txt
+│   │   
 │   └── api/
 │       ├── handler.py          # REST API — reads DynamoDB + S3
-│       └── requirements.txt
+│    
 ├── frontend/                   # React dashboard (contributor scope)
 │   └── README.md
 ├── terraform/                  # Infrastructure as Code (in progress)
