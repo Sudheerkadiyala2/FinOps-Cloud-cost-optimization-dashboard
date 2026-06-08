@@ -360,6 +360,21 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and open issues.
 
 ---
 
+## Future Scope & Planned Features
+
+- Multi-cloud cost monitoring support (AWS, Azure, GCP)
+- AI-based cloud cost optimization recommendations
+- Monthly cost forecasting and prediction analytics
+- Real-time AWS cost anomaly detection
+- Slack, Microsoft Teams, and email alert integrations
+- Kubernetes and EKS cost monitoring
+- Multi-account AWS Organizations cost aggregation
+- IAM security and compliance insights
+- Carbon footprint and sustainability metrics
+- Automated savings recommendation engine
+```
+ 
+
 ## Author
 
 **Kadiyala Sudheer Kumar**
