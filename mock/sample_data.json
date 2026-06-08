@@ -1,5 +1,5 @@
-#This sample data exactly mirrors the real API responses from api_handler.py.
-#Field names,data types, and structure are identical to what live api returns.
+// This sample data exactly mirrors the real API responses from api_handler.py.
+// Field names,data types, and structure are identical to what live api returns.
 
 "_endpoints": {
     "GET /summary": "use the 'summary' key below",
