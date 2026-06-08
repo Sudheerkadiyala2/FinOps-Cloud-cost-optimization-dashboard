@@ -1,58 +1,266 @@
-{
-  "summary": {
-    "totalMonthlyCost": 847.32,
-    "totalWaste": 213.50,
-    "wastePercentage": 25.2,
-    "findingsCount": 12,
-    "lastUpdated": "2025-06-05T08:00:00Z"
+"_endpoints": {
+    "GET /summary": "use the 'summary' key below",
+    "GET /findings": "use the 'findings' key below",
+    "GET /trends": "use the 'trends' key below"
   },
-  "costByService": [
-    { "service": "Amazon EC2",           "monthlyCost": 412.00, "trend": "+8%" },
-    { "service": "Amazon RDS",           "monthlyCost": 198.50, "trend": "-2%" },
-    { "service": "Amazon S3",            "monthlyCost": 87.30,  "trend": "+1%" },
-    { "service": "AWS Lambda",           "monthlyCost": 12.40,  "trend": "0%"  },
-    { "service": "Amazon CloudWatch",    "monthlyCost": 34.10,  "trend": "+3%" },
-    { "service": "AWS Data Transfer",    "monthlyCost": 103.02, "trend": "+5%" }
-  ],
-  "dailyTrend": [
-    { "date": "2025-05-06", "spend": 26.40 },
-    { "date": "2025-05-07", "spend": 27.10 },
-    { "date": "2025-05-08", "spend": 25.80 },
-    { "date": "2025-05-09", "spend": 24.90 },
-    { "date": "2025-05-10", "spend": 28.30 },
-    { "date": "2025-05-11", "spend": 31.20 },
-    { "date": "2025-05-12", "spend": 29.70 }
-  ],
-  "wasteFindings": [
-    {
-      "resourceId":    "i-0abc123def456",
-      "resourceName":  "staging-api-server",
-      "wasteType":     "idle-ec2",
-      "detail":        "m5.large, avg CPU 2.3% over 14 days",
-      "monthlySavings": 69.12,
-      "ownerTag":      "backend-team",
-      "status":        "open",
-      "detectedAt":    "2025-06-05T09:00:00Z"
-    },
-    {
-      "resourceId":    "eipalloc-0def789",
-      "resourceName":  "52.66.142.11",
-      "wasteType":     "unused-eip",
-      "detail":        "Elastic IP not associated with any resource",
-      "monthlySavings": 3.60,
-      "ownerTag":      "devops-team",
-      "status":        "open",
-      "detectedAt":    "2025-06-05T09:00:00Z"
-    },
-    {
-      "resourceId":    "vol-0xyz456abc",
-      "resourceName":  "old-backup-volume",
-      "wasteType":     "unattached-ebs",
-      "detail":        "500GB gp2 volume, not attached since 2025-03-12",
-      "monthlySavings": 50.00,
-      "ownerTag":      "data-team",
-      "status":        "open",
-      "detectedAt":    "2025-06-05T09:00:00Z"
+  "summary": {
+    "openFindingsCount": 8,
+    "resolvedFindingsCount": 4,
+    "totalEstimatedWaste": 213.5,
+    "totalSavingsRealised": 46.56,
+    "findingsByType": {
+      "idle-ec2": {
+        "count": 5,
+        "totalSavings": 138.24
+      },
+      "unattached-ebs": {
+        "count": 3,
+        "totalSavings": 68.5
+      },
+      "unused-eip": {
+        "count": 2,
+        "totalSavings": 7.2
+      }
     }
-  ]
+  },
+  "findings": {
+    "findings": [
+      {
+        "resourceId": "i-0abc123def456",
+        "resourceName": "staging-api-server",
+        "resourceType": "EC2 Instance",
+        "wasteType": "idle-ec2",
+        "detail": "m5.large, avg CPU 2.3% over 14 days",
+        "estimatedMonthlySavings": "69.12",
+        "severity": "critical",
+        "recommendation": "Instance has less than 5% CPU for 14 days. Consider stopping, rightsizing, or switching to a scheduled on/off pattern.",
+        "ownerTag": "backend-team",
+        "status": "open",
+        "region": "us-east-1",
+        "detectedAt": "2025-06-05T09:00:00Z"
+      },
+      {
+        "resourceId": "vol-0xyz456abc",
+        "resourceName": "old-backup-volume",
+        "resourceType": "EBS Volume",
+        "wasteType": "unattached-ebs",
+        "detail": "500GB gp2 volume, unattached since 2025-03-12",
+        "estimatedMonthlySavings": "50.00",
+        "severity": "critical",
+        "recommendation": "Volume not attached to any instance. Snapshot for backup then delete, or re-attach if still needed.",
+        "ownerTag": "data-team",
+        "status": "open",
+        "region": "us-east-1",
+        "detectedAt": "2025-06-05T09:00:00Z"
+      },
+      {
+        "resourceId": "i-0def789abc123",
+        "resourceName": "dev-worker-01",
+        "resourceType": "EC2 Instance",
+        "wasteType": "idle-ec2",
+        "detail": "t3.large, avg CPU 1.8% over 14 days",
+        "estimatedMonthlySavings": "34.56",
+        "severity": "critical",
+        "recommendation": "Instance has less than 5% CPU for 14 days. Consider stopping, rightsizing, or switching to a scheduled on/off pattern.",
+        "ownerTag": "backend-team",
+        "status": "resolved",
+        "region": "us-east-1",
+        "detectedAt": "2025-06-03T09:00:00Z"
+      },
+      {
+        "resourceId": "vol-0aabbcc1122",
+        "resourceName": "test-data-volume",
+        "resourceType": "EBS Volume",
+        "wasteType": "unattached-ebs",
+        "detail": "200GB gp2 volume, unattached since 2025-04-20",
+        "estimatedMonthlySavings": "20.00",
+        "severity": "medium",
+        "recommendation": "Volume not attached to any instance. Snapshot for backup then delete, or re-attach if still needed.",
+        "ownerTag": "data-team",
+        "status": "open",
+        "region": "us-east-1",
+        "detectedAt": "2025-06-04T09:00:00Z"
+      },
+      {
+        "resourceId": "eipalloc-0def789",
+        "resourceName": "52.66.142.11",
+        "resourceType": "Elastic IP",
+        "wasteType": "unused-eip",
+        "detail": "Elastic IP not associated with any resource",
+        "estimatedMonthlySavings": "3.60",
+        "severity": "low",
+        "recommendation": "Elastic IP not attached to any resource. Release it immediately — costs $3.60/month with no benefit.",
+        "ownerTag": "devops-team",
+        "status": "open",
+        "region": "us-east-1",
+        "detectedAt": "2025-06-05T09:00:00Z"
+      },
+      {
+        "resourceId": "eipalloc-0abc123",
+        "resourceName": "13.233.88.42",
+        "resourceType": "Elastic IP",
+        "wasteType": "unused-eip",
+        "detail": "Elastic IP not associated with any resource",
+        "estimatedMonthlySavings": "3.60",
+        "severity": "low",
+        "recommendation": "Elastic IP not attached to any resource. Release it immediately — costs $3.60/month with no benefit.",
+        "ownerTag": "unknown",
+        "status": "resolved",
+        "region": "us-east-1",
+        "detectedAt": "2025-06-01T09:00:00Z"
+      }
+    ],
+    "count": 6
+  },
+  "trends": {
+    "dailyTrend": [
+      {
+        "date": "2025-05-07",
+        "spend": 27.1
+      },
+      {
+        "date": "2025-05-08",
+        "spend": 25.8
+      },
+      {
+        "date": "2025-05-09",
+        "spend": 24.9
+      },
+      {
+        "date": "2025-05-10",
+        "spend": 28.3
+      },
+      {
+        "date": "2025-05-11",
+        "spend": 31.2
+      },
+      {
+        "date": "2025-05-12",
+        "spend": 29.7
+      },
+      {
+        "date": "2025-05-13",
+        "spend": 26.5
+      },
+      {
+        "date": "2025-05-14",
+        "spend": 27.8
+      },
+      {
+        "date": "2025-05-15",
+        "spend": 28.9
+      },
+      {
+        "date": "2025-05-16",
+        "spend": 30.1
+      },
+      {
+        "date": "2025-05-17",
+        "spend": 27.4
+      },
+      {
+        "date": "2025-05-18",
+        "spend": 26.9
+      },
+      {
+        "date": "2025-05-19",
+        "spend": 25.6
+      },
+      {
+        "date": "2025-05-20",
+        "spend": 28.4
+      },
+      {
+        "date": "2025-05-21",
+        "spend": 31.7
+      },
+      {
+        "date": "2025-05-22",
+        "spend": 27.2
+      },
+      {
+        "date": "2025-05-23",
+        "spend": 26.8
+      },
+      {
+        "date": "2025-05-24",
+        "spend": 25.4
+      },
+      {
+        "date": "2025-05-25",
+        "spend": 29.6
+      },
+      {
+        "date": "2025-05-26",
+        "spend": 30.8
+      },
+      {
+        "date": "2025-05-27",
+        "spend": 28.1
+      },
+      {
+        "date": "2025-05-28",
+        "spend": 27.5
+      },
+      {
+        "date": "2025-05-29",
+        "spend": 26.2
+      },
+      {
+        "date": "2025-05-30",
+        "spend": 29.9
+      },
+      {
+        "date": "2025-05-31",
+        "spend": 32.4
+      },
+      {
+        "date": "2025-06-01",
+        "spend": 28.7
+      },
+      {
+        "date": "2025-06-02",
+        "spend": 27.3
+      },
+      {
+        "date": "2025-06-03",
+        "spend": 26.6
+      },
+      {
+        "date": "2025-06-04",
+        "spend": 29.1
+      },
+      {
+        "date": "2025-06-05",
+        "spend": 28.4
+      }
+    ],
+    "byService": [
+      {
+        "service": "Amazon EC2",
+        "cost": 412
+      },
+      {
+        "service": "Amazon RDS",
+        "cost": 198.5
+      },
+      {
+        "service": "AWS Data Transfer",
+        "cost": 103.02
+      },
+      {
+        "service": "Amazon S3",
+        "cost": 87.3
+      },
+      {
+        "service": "Amazon CloudWatch",
+        "cost": 34.1
+      },
+      {
+        "service": "AWS Lambda",
+        "cost": 12.4
+      }
+    ],
+    "collectedAt": "2025-06-05"
+  }
 }
