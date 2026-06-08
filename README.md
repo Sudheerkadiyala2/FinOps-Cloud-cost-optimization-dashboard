@@ -349,8 +349,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and open issues.
 
 ## Roadmap
 
-- [ ] S3 → waste_detector automatic trigger
-- [ ] EventBridge daily schedule
 - [ ] Terraform for all infrastructure
 - [ ] GitHub Actions CI/CD
 - [ ] React dashboard (contributor)
