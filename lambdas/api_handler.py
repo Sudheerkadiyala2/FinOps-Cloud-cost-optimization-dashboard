@@ -230,23 +230,30 @@ def get_trends():
     yesterday = today - timedelta(days=1)
 
     cost_data = None
+    latest_key = None
     for target_date in [today, yesterday]:
-        key = (
-            f"cost-data/"
-            f"year={target_date.year}/"
-            f"month={target_date.month:02d}/"
-            f"day={target_date.day:02d}/"
-            f"costs.json"
-        )
-        try:
-            # Try to read the file from S3
-            obj = s3.get_object(Bucket=BUCKET, Key=key)
-            # obj['Body'] is a stream — .read() gets the bytes, .decode() converts to string
-            cost_data = json.loads(obj['Body'].read().decode('utf-8'))
-            break   # stop once we found a file that exists
-        except s3.exceptions.NoSuchKey:
-            # File doesn't exist yet for this date — try the previous day
+        date_prefix = f"raw-data/{target_date.strftime('%Y-%m-%d')}"
+        # strftime('%Y-%m-%d') → "2026-06-08"
+
+        # List all objects under this date prefix
+        response = s3.list_objects_v2(Bucket=BUCKET, Prefix=date_prefix)
+        objects  = response.get('Contents', [])
+        # 'Contents' is a list of dicts — each has 'Key', 'LastModified', 'Size', etc.
+
+        if not objects:
+            # No files for this date — try yesterday
             continue
+
+        # Sort by LastModified descending — pick the most recent file for that day
+        objects.sort(key=lambda x: x['LastModified'], reverse=True)
+        latest_key = objects[0]['Key']
+        # e.g. "raw-data/2026-06-08-01-00-50.json"
+
+        # ---  Read the file ---
+        obj       = s3.get_object(Bucket=BUCKET, Key=latest_key)
+        cost_data = json.loads(obj['Body'].read().decode('utf-8'))
+        break  # found a file — stop looping 
+
 
     if not cost_data:
         # No data found for today or yesterday
@@ -278,6 +285,7 @@ def get_trends():
         'dailyTrend':   daily_trend,
         'byService':    service_costs[:10],   # top 10 services only
         'collectedAt':  cost_data.get('collectedAt'),
+        'sourceFile' :  latest_key,
     })
 
 
