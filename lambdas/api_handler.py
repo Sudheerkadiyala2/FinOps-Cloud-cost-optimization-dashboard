@@ -12,7 +12,7 @@
 #   GET /trends    → daily spend data for the chart
 #   PUT /findings/{id} → mark a finding as resolved
 # ============================================================
-
+#checking whether code change replicates in aws
 
 import json          # converts Python dict → JSON string (to send back to the dashboard)
 import boto3         # AWS SDK — to talk to DynamoDB and S3
