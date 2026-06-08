@@ -37,10 +37,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Install Dependencies 
-        run: |
-               mkdir package 
-               pip install -r lambdas/requirements.txt -t package 
       - name: Package Lambda Function
         run: | 
                cp lambdas/${{ matrix.lambda.file_name }} package/ 
