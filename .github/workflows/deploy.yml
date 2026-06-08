@@ -16,7 +16,7 @@ jobs:
           - function_name: cost-collector 
             file_name: cost-collector.py 
           - function_name: waste-detector
-            file_name: waste-detector.py 
+            file_name: waste_detector.py 
           - function_name: cost-intelligence-api 
             file_name: api_handler.py
     steps:
