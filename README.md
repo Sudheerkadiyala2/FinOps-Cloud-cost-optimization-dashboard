@@ -197,8 +197,8 @@ aws-cost-intelligence/
 | S3 raw data storage | ✅ Live |
 | Real waste findings detected | ✅ 2 unused EIPs = $7.20/month |
 | React dashboard | 🔧 In progress |
-| S3 → Lambda auto trigger | 🔧 In progress |
-| EventBridge daily schedule | 🔧 In progress |
+| S3 → Lambda auto trigger | ✅Complete |
+| EventBridge daily schedule | ✅ Complete|
 | Terraform | 🔧 In progress |
 | GitHub Actions CI/CD | 🔧 In progress |
 
