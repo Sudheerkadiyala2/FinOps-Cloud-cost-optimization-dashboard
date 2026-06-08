@@ -48,8 +48,6 @@ jobs:
               zip -r ../${{ matrix.lambda.function_name }}.zip . 
       - name: Deploy Lambda Function 
         run: | 
-            aws lambda update-function-code \ 
-            
-              --function-name ${{ matrix.lambda.function_name }} \ 
-            
+            aws lambda update-function-code \
+              --function-name ${{ matrix.lambda.function_name }} \
               --zip-file fileb://${{ matrix.lambda.function_name }}.zip
