@@ -39,9 +39,13 @@ jobs:
 
       - name: Package Lambda Function
         run: | 
-               cp lambdas/${{ matrix.lambda.file_name }} package/ 
-               cd package 
-               zip -r ../${{ matrix.lambda.function_name }}.zip . 
+              rm -rf package
+              mkdir package
+              
+              cp lambdas/${{ matrix.lambda.file_name }} package/
+              
+              cd package 
+              zip -r ../${{ matrix.lambda.function_name }}.zip . 
       - name: Deploy Lambda Function 
         run: | 
             aws lambda update-function-code \ 
