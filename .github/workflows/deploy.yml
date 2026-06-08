@@ -18,7 +18,7 @@ jobs:
           - function_name: waste-detector
             file_name: waste-detector.py 
           - function_name: cost-intelligence-api 
-            file_name: api-handler.py
+            file_name: api_handler.py
     steps:
 
       # Step 1 - Checkout repository
