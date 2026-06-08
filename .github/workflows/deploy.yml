@@ -5,19 +5,31 @@ on:
   push:
     branches:
       - main
-
+   
 jobs:
   deploy:
     name: Deploy Lambda Functions
     runs-on: ubuntu-latest
-
+    strategy:
+       matrix: 
+         lambda: 
+          - function_name: cost-collector 
+            file_name: cost-collector.py 
+          - function_name: waste-detector
+            file_name: waste-detector.py 
+          - function_name: cost-intelligence-api 
+            file_name: api-handler.py
     steps:
 
       # Step 1 - Checkout repository
       - name: Checkout Repository
         uses: actions/checkout@v5
-
-      # Step 2 - Configure AWS Credentials
+      #Step 2- Set Up Python  
+      - name: Set Up Python 
+        uses: actions/setup-python@v5 
+        with: 
+          python-version: '3.14'
+      # Step 3 - Configure AWS Credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
@@ -25,51 +37,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Deploy cost_collector Lambda
-
-      - name: Zip cost_collector Lambda
+      - name: Install Dependencies 
         run: |
-          cd lambdas/cost_collector
-          zip -r ../../cost_collector.zip .
-
-      - name: Deploy cost_collector Lambda
-        run: |
-          aws lambda update-function-code \
-            --function-name cost-collector \
-            --zip-file fileb://cost_collector.zip
-      # Deploy waste_detector Lambda
-
-      - name: Zip waste_detector Lambda
-        run: |
-          cd lambdas/waste_detector
-          zip -r ../../waste_detector.zip .
-
-      - name: Deploy waste_detector Lambda
-        run: |
-          aws lambda update-function-code \
-            --function-name waste-detector \
-            --zip-file fileb://waste_detector.zip
-      # Deploy API Lambda
-      - name: Zip API Lambda
-        run: |
-          cd lambdas/api
-          zip -r ../../api.zip .
-
-      - name: Deploy API Lambda
-        run: |
-          aws lambda update-function-code \
-            --function-name cost-intelligence-api \
-            --zip-file fileb://api.zip
-
-      # Deployment Success Message
-
-      - name: Deployment Complete
-        run: echo "All Lambda functions deployed successfully."
-
-
-
-
-
-
-
-
+               mkdir package 
+               pip install -r lambdas/requirements.txt -t package 
+      - name: Package Lambda Function
+        run: | 
+               cp lambdas/${{ matrix.lambda.file_name }} package/ 
+               cd package 
+               zip -r ../${{ matrix.lambda.function_name }}.zip . 
+      - name: Deploy Lambda Function 
+        run: | 
+            aws lambda update-function-code \ 
+            --function-name ${{ matrix.lambda.function_name }} \ 
+            --zip-file fileb://${{ matrix.lambda.function_name }}.zip
