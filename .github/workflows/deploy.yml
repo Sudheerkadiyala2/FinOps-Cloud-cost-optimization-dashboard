@@ -50,6 +50,6 @@ jobs:
         run: | 
             aws lambda update-function-code \ 
             
-            --function-name ${{ matrix.lambda.function_name }} \ 
+              --function-name ${{ matrix.lambda.function_name }} \ 
             
-            --zip-file fileb://${{ matrix.lambda.function_name }}.zip
+              --zip-file fileb://${{ matrix.lambda.function_name }}.zip
