@@ -108,15 +108,12 @@ Each finding includes: `resourceId`, `resourceName`, `wasteType`, `detail`, `est
 ```
 aws-cost-intelligence/
 ├── lambdas/
-│   ├── cost_collector/
-│   │   ├── handler.py          # collects AWS inventory + CloudWatch metrics
-│   │   
-│   ├── waste_detector/
-│   │   ├── handler.py          # detects waste, writes findings to DynamoDB
-│   │   
-│   └── api/
-│       ├── handler.py          # REST API — reads DynamoDB + S3
-│    
+│   ├── cost-collector.py  # collects AWS inventory + CloudWatch metrics
+│   │         
+│   ├── waste-detector.py # detects waste, writes findings to DynamoDB
+│   │           
+│   └── api-handler.py    # REST API — reads DynamoDB + S3
+│             
 ├── frontend/                   # React dashboard (contributor scope)
 │   └── README.md
 ├── terraform/                  # Infrastructure as Code (in progress)
