@@ -26,7 +26,7 @@ Most teams overspend on AWS and don't know where. This platform:
 ---
 # Architecture Diagram
 
-![AWS Cost Intelligence Architecture](docs/architecture.png)
+![AWS Cost Intelligence Architecture](docs/cost-intelligence-architecture.png)
 
 ## Live API
 
