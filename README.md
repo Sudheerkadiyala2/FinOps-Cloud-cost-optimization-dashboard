@@ -379,21 +379,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and open issues.
 - Automated savings recommendation engine
 ```
  
----
-## Author
 
-**Kadiyala Sudheer Kumar**
-Project Engineer · Wipro · Chennai
-
-[![Portfolio](https://img.shields.io/badge/Portfolio-sudheerkadiyala2.github.io-blue?style=flat-square)](https://sudheerkadiyala2.github.io/portfolio)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/kadiyala-sudheer-kumar-760677259/)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=flat-square&logo=github)](https://github.com/sudheerkadiyala2)
-
----
-
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.
 
 
 
