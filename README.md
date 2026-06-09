@@ -24,6 +24,9 @@ Most teams overspend on AWS and don't know where. This platform:
 **Real findings on day one.** Point it at any AWS account and it immediately surfaces wasteful resources with dollar amounts attached.
 
 ---
+# Architecture Diagram
+
+![AWS Cost Intelligence Architecture](docs/architecture.png)
 
 ## Live API
 
