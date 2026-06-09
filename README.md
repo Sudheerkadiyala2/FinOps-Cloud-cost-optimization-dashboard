@@ -395,9 +395,5 @@ Project Engineer · Wipro · Chennai
 
 MIT License — see [LICENSE](LICENSE) for details.
 
----
 
-<div align="center">
-  <sub>Built with Python · AWS Lambda · DynamoDB · S3 · API Gateway · CloudWatch</sub>
-</div>
 
