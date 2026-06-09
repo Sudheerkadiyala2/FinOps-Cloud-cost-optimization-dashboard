@@ -1,0 +1,246 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram name="AWS Cost Intelligence Platform" id="cost-intel-arch">
+    <mxGraphModel dx="1367" dy="874" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#1a1a2e;" value="AWS Cloud Cost Intelligence Platform" vertex="1">
+          <mxGeometry height="40" width="800" x="427" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;" value="Serverless · Event-Driven · FinOps · us-east-1" vertex="1">
+          <mxGeometry height="25" width="800" x="427" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-trigger" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#d6b656;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="Trigger Layer" vertex="1">
+          <mxGeometry height="130" width="220" x="80" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="eventbridge" parent="zone-trigger" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.eventbridge;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#E7157B;strokeColor=#ffffff;fontColor=#000000;" value="EventBridge" vertex="1">
+          <mxGeometry height="60" width="60" x="30" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="eventbridge-label" parent="zone-trigger" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="Daily schedule&#xa;cron(0 8 * * ? *)" vertex="1">
+          <mxGeometry height="22" width="110" x="5" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-collect" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#0050ef;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="Collection Layer" vertex="1">
+          <mxGeometry height="230" width="240" x="380" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="cost-collector" parent="zone-collect" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#ED7100;strokeColor=#ffffff;fontColor=#000000;" value="cost_collector" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cost-collector-label" parent="zone-collect" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="Collects EC2, EBS, EIP&#xa;+ CloudWatch metrics" vertex="1">
+          <mxGeometry height="22" width="130" x="55" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="aws-apis" parent="zone-collect" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=10;fillColor=#232F3E;strokeColor=#ffffff;fontColor=#000000;" value="AWS APIs" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="aws-apis-label" parent="zone-collect" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="DescribeInstances&#xa;DescribeVolumes&#xa;DescribeAddresses&#xa;GetMetricStatistics" vertex="1">
+          <mxGeometry height="30" width="170" x="40" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-storage" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#00a4a6;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="Storage Layer" vertex="1">
+          <mxGeometry height="230" width="240" x="700" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="zone-storage" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#7AA116;strokeColor=#ffffff;fontColor=#000000;" value="S3 Bucket" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-label" parent="zone-storage" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="raw-data/*.json&#xa;Infrastructure snapshots&#xa;Historical analysis" vertex="1">
+          <mxGeometry height="40" width="150" x="45" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-event" parent="zone-storage" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=10;fillColor=#7AA116;strokeColor=#ffffff;fontColor=#000000;opacity=60;" value="S3 Event Notification" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-event-label" parent="zone-storage" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;fontStyle=2;" value="Auto-trigger on upload&#xa;(in progress)" vertex="1">
+          <mxGeometry height="22" width="130" x="55" y="205" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-detect" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#d04A02;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="Detection Layer" vertex="1">
+          <mxGeometry height="230" width="280" x="1020" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="waste-detector" parent="zone-detect" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#ED7100;strokeColor=#ffffff;fontColor=#000000;" value="waste_detector" vertex="1">
+          <mxGeometry height="60" width="60" x="110" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="waste-detector-label" parent="zone-detect" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="Detects waste findings" vertex="1">
+          <mxGeometry height="14" width="140" x="70" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="rules-box" parent="zone-detect" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;" value="Detection Rules" vertex="1">
+          <mxGeometry height="85" width="240" x="20" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="rules-text" parent="zone-detect" style="text;html=1;align=left;fontSize=10;fontColor=#333333;strokeColor=none;fillColor=none;verticalAlign=top;" value="🔴  Idle EC2   ( avg CPU &lt; 5% / 14 days )&#xa;🟡  Unattached EBS   ( state = available )&#xa;🟢  Unused Elastic IP   ( no AssociationId )" vertex="1">
+          <mxGeometry height="60" width="228" x="26" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-persist" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#0050ef;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="Persistence Layer" vertex="1">
+          <mxGeometry height="180" width="240" x="700" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="dynamodb" parent="zone-persist" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#C7131F;strokeColor=#ffffff;fontColor=#000000;" value="DynamoDB" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="dynamodb-label" parent="zone-persist" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="cost-waste-findings&#xa;PAY_PER_REQUEST&#xa;resourceId · timestamp" vertex="1">
+          <mxGeometry height="40" width="150" x="45" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-api" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#00897b;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="API Layer" vertex="1">
+          <mxGeometry height="310" width="240" x="380" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="api-gw" parent="zone-api" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#E7157B;strokeColor=#ffffff;fontColor=#000000;" value="API Gateway" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="api-gw-label" parent="zone-api" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="HTTP API · HTTPS" vertex="1">
+          <mxGeometry height="14" width="130" x="55" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="api-lambda" parent="zone-api" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=10;fillColor=#ED7100;strokeColor=#ffffff;fontColor=#000000;" value="cost_intelligence_api" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="api-lambda-label" parent="zone-api" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="Reads DynamoDB + S3&#xa;Returns JSON responses" vertex="1">
+          <mxGeometry height="22" width="150" x="45" y="192" as="geometry" />
+        </mxCell>
+        <mxCell id="routes-box" parent="zone-api" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;fontColor=#333333;" value="GET /summary    GET /findings    GET /trends" vertex="1">
+          <mxGeometry height="30" width="210" x="15" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="put-route" parent="zone-api" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontColor=#333333;" value="PUT /findings/{id}   → resolve finding" vertex="1">
+          <mxGeometry height="30" width="210" x="15" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-frontend" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#6d8764;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="Frontend Layer" vertex="1">
+          <mxGeometry height="230" width="240" x="80" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="react" parent="zone-frontend" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#232F3E;strokeColor=#ffffff;fontColor=#000000;" value="React Dashboard" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="react-label" parent="zone-frontend" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="React + Recharts&#xa;Vite · contributor-built" vertex="1">
+          <mxGeometry height="22" width="130" x="55" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="ui-features" parent="zone-frontend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#cccccc;fontSize=9;align=left;verticalAlign=top;spacingLeft=6;spacingTop=4;fontColor=#444444;" value="KPI Cards · Daily Trend Chart&#xa;Spend by Service Chart&#xa;Waste Findings Table&#xa;Severity Badges · Status Filter" vertex="1">
+          <mxGeometry height="75" width="210" x="15" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-obs" parent="1" style="swimlane;startSize=25;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1;fontSize=11;rounded=1;arcSize=4;" value="Observability" vertex="1">
+          <mxGeometry height="180" width="240" x="1020" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="cloudwatch" parent="zone-obs" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=11;fillColor=#E7157B;strokeColor=#ffffff;fontColor=#000000;" value="CloudWatch" vertex="1">
+          <mxGeometry height="60" width="60" x="90" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="cw-label" parent="zone-obs" style="text;html=1;align=center;fontSize=9;fontColor=#666666;strokeColor=none;fillColor=none;" value="Lambda logs · Alarms&#xa;Spend spike detection&#xa;Custom metrics" vertex="1">
+          <mxGeometry height="40" width="150" x="45" y="97" as="geometry" />
+        </mxCell>
+        <mxCell id="zone-cicd" parent="1" style="swimlane;startSize=25;fillColor=#f8f8f8;strokeColor=#aaaaaa;fontColor=#888888;fontStyle=3;fontSize=11;rounded=1;arcSize=4;dashed=1;" value="CI/CD · IaC  (in progress)" vertex="1">
+          <mxGeometry height="110" width="560" x="380" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="github-actions" parent="zone-cicd" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=10;fillColor=#24292e;strokeColor=#ffffff;fontColor=#000000;" value="GitHub Actions" vertex="1">
+          <mxGeometry height="50" width="50" x="60" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gh-label" parent="zone-cicd" style="text;html=1;align=center;fontSize=9;fontColor=#888888;strokeColor=none;fillColor=none;" value="Auto deploy Lambdas&#xa;Trivy security scan" vertex="1">
+          <mxGeometry height="22" width="110" x="30" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="terraform" parent="zone-cicd" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.general;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=10;fillColor=#5C4EE5;strokeColor=#ffffff;fontColor=#000000;" value="Terraform" vertex="1">
+          <mxGeometry height="50" width="50" x="255" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="tf-label" parent="zone-cicd" style="text;html=1;align=center;fontSize=9;fontColor=#888888;strokeColor=none;fillColor=none;" value="Infra as Code&#xa;One-command deploy" vertex="1">
+          <mxGeometry height="22" width="120" x="220" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="iam" parent="zone-cicd" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.role;labelBackgroundColor=#ffffff;sketch=0;fontStyle=1;fontSize=10;fillColor=#DD344C;strokeColor=#ffffff;fontColor=#000000;" value="IAM Roles" vertex="1">
+          <mxGeometry height="50" width="50" x="450" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iam-label" parent="zone-cicd" style="text;html=1;align=center;fontSize=9;fontColor=#888888;strokeColor=none;fillColor=none;" value="Least-privilege&#xa;execution roles" vertex="1">
+          <mxGeometry height="22" width="120" x="415" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="arr1" edge="1" parent="1" source="eventbridge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#0050ef;strokeWidth=2;fontColor=#0050ef;fontSize=9;" target="cost-collector" value="triggers daily">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr2" edge="1" parent="1" source="cost-collector" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#232F3E;strokeWidth=1.5;fontColor=#232F3E;fontSize=9;" target="aws-apis" value="calls">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr3" edge="1" parent="1" source="cost-collector" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#7AA116;strokeWidth=2;fontColor=#7AA116;fontSize=9;" target="s3" value="uploads JSON snapshot">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr4" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#d04A02;strokeWidth=2;fontColor=#d04A02;fontSize=9;" target="waste-detector" value="S3 event trigger">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr5" edge="1" parent="1" source="waste-detector" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#C7131F;strokeWidth=2;fontColor=#C7131F;fontSize=9;" target="dynamodb" value="writes findings">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1160" y="390" />
+              <mxPoint x="820" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr6" edge="1" parent="1" source="dynamodb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#00897b;strokeWidth=2;fontColor=#00897b;fontSize=9;" target="api-lambda" value="queries findings">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr7" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#7AA116;strokeWidth=1.5;strokeDasharray=5;fontColor=#7AA116;fontSize=9;" target="api-lambda" value="reads trends data">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="820" y="380" />
+              <mxPoint x="500" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr8" edge="1" parent="1" source="api-gw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#E7157B;strokeWidth=2;fontColor=#E7157B;fontSize=9;" target="api-lambda" value="invokes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr9" edge="1" parent="1" source="react" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#232F3E;strokeWidth=2;fontColor=#232F3E;fontSize=9;" target="api-gw" value="HTTPS requests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arr10" edge="1" parent="1" source="cloudwatch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.2;entryDx=0;entryDy=0;strokeColor=#999999;strokeWidth=1;strokeDasharray=4;fontColor=#999999;fontSize=9;" target="waste-detector" value="monitors">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1000" y="480" />
+              <mxPoint x="1000" y="180" />
+              <mxPoint x="1100" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend" parent="1" style="swimlane;startSize=20;fillColor=#f5f5f5;strokeColor=#aaaaaa;fontColor=#555555;fontStyle=1;fontSize=10;rounded=1;arcSize=4;" value="Legend" vertex="1">
+          <mxGeometry height="160" width="260" x="80" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" edge="1" parent="legend" style="edgeStyle=none;strokeColor=#0050ef;strokeWidth=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="45" />
+              <mxPoint x="80" y="45" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg1t" parent="legend" style="text;html=1;fontSize=9;fontColor=#333333;strokeColor=none;fillColor=none;" value="Scheduled trigger" vertex="1">
+          <mxGeometry height="18" width="160" x="85" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" edge="1" parent="legend" style="edgeStyle=none;strokeColor=#7AA116;strokeWidth=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="70" />
+              <mxPoint x="80" y="70" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg2t" parent="legend" style="text;html=1;fontSize=9;fontColor=#333333;strokeColor=none;fillColor=none;" value="Data storage flow" vertex="1">
+          <mxGeometry height="18" width="160" x="85" y="61" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" edge="1" parent="legend" style="edgeStyle=none;strokeColor=#C7131F;strokeWidth=2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="95" />
+              <mxPoint x="80" y="95" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg3t" parent="legend" style="text;html=1;fontSize=9;fontColor=#333333;strokeColor=none;fillColor=none;" value="Findings write" vertex="1">
+          <mxGeometry height="18" width="160" x="85" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" edge="1" parent="legend" style="edgeStyle=none;strokeColor=#999999;strokeWidth=1;strokeDasharray=4;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="120" />
+              <mxPoint x="80" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg4t" parent="legend" style="text;html=1;fontSize=9;fontColor=#333333;strokeColor=none;fillColor=none;" value="Monitoring / observability" vertex="1">
+          <mxGeometry height="18" width="160" x="85" y="111" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5" edge="1" parent="legend" style="edgeStyle=none;strokeColor=#aaaaaa;strokeWidth=1;strokeDasharray=6 2;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="20" y="145" />
+              <mxPoint x="80" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="leg5t" parent="legend" style="text;html=1;fontSize=9;fontColor=#888888;strokeColor=none;fillColor=none;fontStyle=2;" value="In progress / planned" vertex="1">
+          <mxGeometry height="18" width="160" x="85" y="136" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
