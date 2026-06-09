@@ -28,6 +28,8 @@ Most teams overspend on AWS and don't know where. This platform:
 
 ![AWS Cost Intelligence Architecture](docs/cost-intelligence-architecture.drawio.png)
 
+---
+
 ## Live API
 
 ```
@@ -377,7 +379,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions and open issues.
 - Automated savings recommendation engine
 ```
  
-
+---
 ## Author
 
 **Kadiyala Sudheer Kumar**
