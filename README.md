@@ -182,7 +182,7 @@ aws-cost-intelligence/
   ],
   "byService": [
     { "service": "Amazon EC2", "cost": 412.00 },
-    { "service": "Amazon RDS", "cost": 198.50 }
+    { "service": "Amazon EIP", "cost": 198.50 }
   ],
   "collectedAt": "2025-06-05"
 }
