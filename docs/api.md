@@ -1,4 +1,3 @@
-https://naijpkbw4m.execute-api.us-east-1.amazonaws.com
 
 https://naijpkbw4m.execute-api.us-east-1.amazonaws.com/trends
 
