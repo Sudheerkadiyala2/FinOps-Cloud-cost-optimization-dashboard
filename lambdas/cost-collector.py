@@ -94,7 +94,7 @@ def lambda_handler(event, context):
 # RESOURCE COLLECTION 1: EC2 INSTANCES
 #
 # What we collect:
-# - instance details
+# - instance details - CPU utilization < 5% (last 14 days)
 # - CPU utilization
 # - network traffic
 # - tags
@@ -109,11 +109,11 @@ def collect_ec2_instances():
 
     collected_instances = []
 
-    # Get all EC2 instances
+    # Get all data of the instances
     response = ec2.describe_instances()
 
     # Last 14 days for metrics
-    fourteen_days_ago = datetime.now(timezone.utc) - timedelta(days=14)
+    fourteen_days_ago = datetime.now(timezone.utc) - timedelta(days=14) 
 
     now = datetime.now(timezone.utc)
 
@@ -133,11 +133,11 @@ def collect_ec2_instances():
             cpu_response = cw.get_metric_statistics(
                 Namespace='AWS/EC2',
 
-                MetricName='CPUUtilization',
+                MetricName='CPUUtilization',  
 
                 Dimensions=[{
                     'Name': 'InstanceId',
-                    'Value': instance_id
+                    'Value': instance_id       
                 }],
 
                 StartTime=fourteen_days_ago,
@@ -154,7 +154,7 @@ def collect_ec2_instances():
             if cpu_datapoints:
 
                 avg_cpu = (
-                    sum(point['Average'] for point in cpu_datapoints)
+                    sum(point['Average'] for point in cpu_datapoints)     
                     / len(cpu_datapoints)
                 )
 
@@ -189,7 +189,7 @@ def collect_ec2_instances():
             if network_in_points:
 
                 avg_network_in = (
-                    sum(point['Average'] for point in network_in_points)
+                    sum(point['Average'] for point in network_in_points)       
                     / len(network_in_points)
                 )
 
@@ -285,13 +285,13 @@ def collect_elastic_ips():
 
             'allocation_id': eip.get(
                 'AllocationId',
-                eip['PublicIp']
+                eip['PublicIp']                                 
             ),
 
             'public_ip': eip['PublicIp'],
 
-            # If AssociationId exists → attached
-            'associated': 'AssociationId' in eip
+            # If AssociationId exists → attached         
+            'associated': 'AssociationId' in eip                 
         })
 
     return collected_eips
