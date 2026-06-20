@@ -138,7 +138,7 @@ aws-cost-intelligence/
 
 Swagger UI:
 
-https://sudheerkadiyala2.github.io/FinOps-Cloud-cost-optimization-dashboard/
+[https://sudheerkadiyala2.github.io/FinOps-Cloud-cost-optimization-dashboard/](https://sudheerkadiyala2.github.io/FinOps-Cloud-cost-optimization-dashboard/swagger.html)
 
 ## API Endpoints
 
