@@ -125,7 +125,9 @@ aws-cost-intelligence/
 ├── mock/
 │   └── sample_data.json        # Realistic mock data for frontend development
 ├── docs/
-│   └── api.md                  # Full API documentation with response shapes
+│   └── api.md
+|   
+|                 # Full API documentation with response shapes
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml          # CI/CD pipeline (in progress)
