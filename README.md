@@ -134,59 +134,18 @@ aws-cost-intelligence/
 ```
 
 ---
+## Live API Documentation
 
-## API Response Examples
+Swagger UI:
 
-### `GET /summary`
-```json
-{
-  "openFindingsCount": 8,
-  "resolvedFindingsCount": 4,
-  "totalEstimatedWaste": 213.50,
-  "totalSavingsRealised": 46.56,
-  "findingsByType": {
-    "idle-ec2":       { "count": 3, "totalSavings": 138.24 },
-    "unattached-ebs": { "count": 3, "totalSavings": 68.50  },
-    "unused-eip":     { "count": 2, "totalSavings": 7.20   }
-  }
-}
-```
+https://sudheerkadiyala2.github.io/FinOps-Cloud-cost-optimization-dashboard/
 
-### `GET /findings`
-```json
-{
-  "findings": [
-    {
-      "resourceId":              "i-0abc123def456",
-      "resourceName":            "staging-api-server",
-      "wasteType":               "idle-ec2",
-      "detail":                  "m5.large, avg CPU 2.3% over 14 days",
-      "estimatedMonthlySavings": "69.12",
-      "severity":                "critical",
-      "recommendation":          "Consider stopping, rightsizing, or scheduling on/off.",
-      "ownerTag":                "backend-team",
-      "status":                  "open",
-      "detectedAt":              "2025-06-05T09:00:00Z"
-    }
-  ],
-  "count": 8
-}
-```
+## API Endpoints
 
-### `GET /trends`
-```json
-{
-  "dailyTrend": [
-    { "date": "2025-05-06", "spend": 26.40 },
-    { "date": "2025-05-07", "spend": 27.10 }
-  ],
-  "byService": [
-    { "service": "Amazon EC2", "cost": 412.00 },
-    { "service": "Amazon EIP", "cost": 198.50 }
-  ],
-  "collectedAt": "2025-06-05"
-}
-```
+GET /summary
+GET /trends
+GET /findings
+
 
 ---
 
