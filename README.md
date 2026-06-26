@@ -4,11 +4,6 @@
 
 <br/>
 
-[![AWS](https://img.shields.io/badge/AWS-Serverless-orange?style=flat-square&logo=amazonaws)](https://aws.amazon.com/)
-[![Python](https://img.shields.io/badge/Python-3.12-blue?style=flat-square&logo=python)](https://python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
-[![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)]()
 
 ---
 
