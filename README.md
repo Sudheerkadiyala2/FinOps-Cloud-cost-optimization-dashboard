@@ -1,10 +1,6 @@
 # ◈ AWS Cloud Cost Intelligence Platform
 
 > A production-inspired, serverless FinOps platform that automatically detects AWS resource waste, generates cost optimization findings, and exposes real-time analytics APIs — built on a fully event-driven, near-zero-cost architecture.
-
-<br/>
-
-
 ---
 
 ## What This Is
